@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Wisdom's Love Proposal</title>
     <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         body {
             margin: 0;
             padding: 0;
@@ -12,11 +17,14 @@
             overflow: hidden;
             cursor: pointer;
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Arial', cursive;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
             touch-action: manipulation;
+            position: fixed;
+            -webkit-text-size-adjust: 100%;
         }
 
         .heart {
@@ -53,80 +61,93 @@
         .romantic-text {
             position: absolute;
             color: white;
-            font-size: 1.5rem;
-            text-shadow: 0 0 20px currentColor;
+            text-shadow: 0 0 10px currentColor;
             opacity: 0;
             animation: text-float 8s ease-in-out forwards;
             pointer-events: none;
             white-space: nowrap;
             font-weight: bold;
             z-index: 2;
+            font-size: 1rem;
         }
 
         .proposal {
             position: absolute;
             color: #ff66cc;
-            text-shadow: 0 0 25px #ff3388;
+            text-shadow: 0 0 15px #ff3388;
             animation: pulse 3s ease-in-out infinite;
             z-index: 10;
-            top: 15%;
-            width: 90%;
-            text-align: center;
-            font-family: 'Brush Script MT', cursive;
-            padding: 0 5%;
-            font-size: 2.5rem;
-        }
-
-        .lover-name {
-            position: absolute;
-            color: #ff99dd;
-            text-shadow: 0 0 20px #ff77bb;
-            z-index: 10;
-            top: 25%;
+            top: 10vh;
             width: 90%;
             text-align: center;
             font-family: 'Brush Script MT', cursive;
             padding: 0 5%;
             font-size: 2rem;
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .lover-name {
+            position: absolute;
+            color: #ff99dd;
+            text-shadow: 0 0 10px #ff77bb;
+            z-index: 10;
+            top: 20vh;
+            width: 90%;
+            text-align: center;
+            font-family: 'Brush Script MT', cursive;
+            padding: 0 5%;
+            font-size: 1.5rem;
+            margin: 0;
         }
 
         .center-heart {
             position: absolute;
             color: #ff0055;
-            filter: drop-shadow(0 0 40px #ff3388);
+            filter: drop-shadow(0 0 20px #ff3388);
             z-index: 5;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             animation: pulse 2s ease-in-out infinite, glow 1.5s alternate infinite;
-            font-size: 8rem;
+            font-size: 5rem;
+            line-height: 1;
+            margin: 0;
         }
 
         .response-buttons {
             position: fixed;
-            bottom: 15%;
+            bottom: 10vh;
             width: 100%;
             text-align: center;
             z-index: 20;
             display: none;
             animation: fadeIn 1.5s ease-out;
+            padding: 0 5%;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
         .response-btn {
             border: none;
-            padding: 12px 24px;
+            padding: 12px 20px;
             text-align: center;
-            margin: 8px;
-            border-radius: 12px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            font-size: 1.2rem;
-            width: 120px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 1.1rem;
+            min-width: 100px;
+            flex: 1;
+            max-width: 150px;
         }
 
-        .response-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        .response-btn:active {
+            transform: scale(0.95);
         }
 
         #yes-btn {
@@ -143,26 +164,27 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 15px;
+            gap: 10px;
+            width: 100%;
         }
 
-        #whatsapp-yes, #whatsapp-no {
-            display: inline-block;
+        .whatsapp-btn {
+            display: block;
             background: #25D366;
             color: white;
-            padding: 12px 24px;
+            padding: 12px 20px;
             text-align: center;
-            margin: 8px 0;
-            border-radius: 12px;
+            border-radius: 25px;
             cursor: pointer;
             text-decoration: none;
-            transition: transform 0.3s;
+            transition: transform 0.2s;
             font-size: 1rem;
-            width: 220px;
+            width: 100%;
+            max-width: 300px;
         }
 
-        #whatsapp-yes:hover, #whatsapp-no:hover {
-            transform: scale(1.05);
+        .whatsapp-btn:active {
+            transform: scale(0.95);
         }
 
         @keyframes float {
@@ -171,7 +193,7 @@
                 opacity: 1;
             }
             50% {
-                transform: translate(0, -60px) rotate(15deg) scale(1.3);
+                transform: translate(0, -40px) rotate(15deg) scale(1.2);
             }
             100% {
                 transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0);
@@ -186,7 +208,7 @@
             }
             20% {
                 opacity: 1;
-                transform: translate(0, -40px) scale(1.3);
+                transform: translate(0, -30px) scale(1.1);
             }
             100% {
                 transform: translate(var(--tx), var(--ty)) scale(0);
@@ -196,13 +218,13 @@
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 1; }
             100% { transform: scale(1); opacity: 0.9; }
         }
 
         @keyframes glow {
-            0% { filter: drop-shadow(0 0 30px #ff0055); }
-            100% { filter: drop-shadow(0 0 60px #ff66cc); }
+            0% { filter: drop-shadow(0 0 15px #ff0055); }
+            100% { filter: drop-shadow(0 0 30px #ff66cc); }
         }
 
         @keyframes fadeIn {
@@ -210,62 +232,68 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Media Queries for Responsiveness */
-        @media (min-width: 768px) {
+        /* Media Queries for Larger Screens */
+        @media (min-width: 768px) and (min-height: 500px) {
             .proposal {
-                font-size: 3.5rem;
-                top: 20%;
+                font-size: 3rem;
+                top: 15vh;
             }
             
             .lover-name {
-                font-size: 2.5rem;
-                top: 30%;
+                font-size: 2rem;
+                top: 25vh;
             }
             
             .center-heart {
-                font-size: 150px;
+                font-size: 8rem;
             }
             
             .response-btn {
-                padding: 15px 32px;
-                font-size: 1.5rem;
-                width: auto;
+                padding: 15px 25px;
+                font-size: 1.3rem;
+                min-width: 120px;
+                max-width: 180px;
             }
             
-            #whatsapp-yes, #whatsapp-no {
-                padding: 15px 32px;
+            .whatsapp-btn {
+                padding: 15px 25px;
                 font-size: 1.2rem;
-                width: auto;
+                max-width: 350px;
             }
             
-            .whatsapp-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-            
-            #whatsapp-yes, #whatsapp-no {
-                margin: 0 10px;
+            .romantic-text {
+                font-size: 1.3rem;
             }
         }
 
-        @media (max-height: 600px) {
+        /* Landscape orientation adjustments */
+        @media (orientation: landscape) and (max-height: 500px) {
             .proposal {
-                top: 10%;
-                font-size: 2rem;
+                font-size: 1.5rem;
+                top: 5vh;
             }
             
             .lover-name {
-                top: 20%;
-                font-size: 1.5rem;
+                font-size: 1.2rem;
+                top: 12vh;
             }
             
             .center-heart {
-                font-size: 5rem;
-                top: 45%;
+                font-size: 3rem;
             }
             
             .response-buttons {
-                bottom: 10%;
+                bottom: 5vh;
+            }
+            
+            .response-btn {
+                padding: 8px 15px;
+                font-size: 1rem;
+            }
+            
+            .whatsapp-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -275,21 +303,24 @@
     <div class="lover-name">- Wisdom -</div>
     <div class="center-heart">💖</div>
 
-    <!-- Response Buttons (Email) -->
+    <!-- Response Buttons -->
     <div class="response-buttons">
-        <div>
+        <div class="btn-container">
             <button id="yes-btn" class="response-btn">YES 💖</button>
             <button id="no-btn" class="response-btn">NO 😢</button>
         </div>
         
         <div class="whatsapp-buttons">
-            <a id="whatsapp-yes" href="#" target="_blank">WhatsApp (Yes)</a>
-            <a id="whatsapp-no" href="#" target="_blank">WhatsApp (No)</a>
+            <a id="whatsapp-yes" class="whatsapp-btn" href="#" target="_blank">Reply via WhatsApp (Yes)</a>
+            <a id="whatsapp-no" class="whatsapp-btn" href="#" target="_blank">Reply via WhatsApp (No)</a>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if mobile device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
             const colors = [
                 '#ff3388', '#ff66aa', '#ff99cc',
                 '#ffccdd', '#ff0055', '#ff1493',
@@ -306,27 +337,22 @@
                 "I fall for you every day",
                 "Your love is my paradise",
                 "Together, we're infinite",
-                "You're my perfect match",
-                "My love for you is eternal",
-                "In your arms, I'm home",
-                "You're the answer to my prayers",
-                "I choose you every day",
-                "You're my happy ending",
-                "My heart whispers your name"
+                "You're my perfect match"
             ];
             
             function createHeart(x, y, isRandom) {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 
-                // Random properties
-                const size = Math.random() * 20 + 15;
-                const duration = Math.random() * 5 + 4;
+                // Adjust size based on device
+                const baseSize = isMobile ? 15 : 20;
+                const size = Math.random() * baseSize + 10;
+                const duration = Math.random() * 4 + 3;
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 const angle = Math.random() * Math.PI * 2;
-                const distance = 150 + Math.random() * 300;
+                const distance = isMobile ? 100 + Math.random() * 200 : 150 + Math.random() * 300;
                 const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance - 150;
+                const ty = Math.sin(angle) * distance - (isMobile ? 100 : 150);
                 const rotation = Math.random() * 360;
                 
                 // Set CSS variables
@@ -352,7 +378,9 @@
                 
                 // Remove heart after animation
                 setTimeout(() => {
-                    heart.remove();
+                    if (heart.parentNode) {
+                        heart.remove();
+                    }
                 }, duration * 1000);
             }
             
@@ -360,22 +388,21 @@
                 const text = document.createElement('div');
                 text.classList.add('romantic-text');
                 
-                // Random properties
                 const message = romanticMessages[Math.floor(Math.random() * romanticMessages.length)];
-                const duration = Math.random() * 6 + 6;
+                const duration = Math.random() * 5 + 4;
                 const angle = Math.random() * Math.PI * 2;
-                const distance = 150 + Math.random() * 300;
+                const distance = isMobile ? 100 + Math.random() * 200 : 150 + Math.random() * 300;
                 const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance - 150;
+                const ty = Math.sin(angle) * distance - (isMobile ? 100 : 150);
                 
                 text.textContent = message;
                 text.style.setProperty('--tx', `${tx}px`);
                 text.style.setProperty('--ty', `${ty}px`);
                 
                 // Random text color
-                const hue = 330 + Math.random() * 30; // Pink/red hues
+                const hue = 330 + Math.random() * 30;
                 text.style.color = `hsl(${hue}, 100%, 80%)`;
-                text.style.fontSize = `${Math.random() * 0.6 + 1}rem`;
+                text.style.fontSize = `${Math.random() * 0.5 + 0.8}rem`;
                 
                 // Position
                 text.style.left = x + 'px';
@@ -388,40 +415,53 @@
                 
                 // Remove text after animation
                 setTimeout(() => {
-                    text.remove();
+                    if (text.parentNode) {
+                        text.remove();
+                    }
                 }, duration * 1000);
             }
             
-            // Show response buttons after 5 seconds
+            // Show response buttons after 3 seconds
             setTimeout(() => {
-                document.querySelector('.response-buttons').style.display = 'block';
-                
-                // Create a heart explosion when buttons appear
-                const centerX = window.innerWidth / 2;
-                const centerY = window.innerHeight / 2;
-                for (let i = 0; i < 20; i++) {
-                    setTimeout(() => createHeart(centerX, centerY, false), i * 50);
+                const responseButtons = document.querySelector('.response-buttons');
+                if (responseButtons) {
+                    responseButtons.style.display = 'block';
+                    
+                    // Create a heart explosion when buttons appear
+                    const centerX = window.innerWidth / 2;
+                    const centerY = window.innerHeight / 2;
+                    for (let i = 0; i < (isMobile ? 15 : 20); i++) {
+                        setTimeout(() => createHeart(centerX, centerY, false), i * 50);
+                    }
                 }
-            }, 5000);
+            }, 3000);
             
             // Email response handling
-            document.getElementById('yes-btn').addEventListener('click', function() {
+            document.getElementById('yes-btn')?.addEventListener('click', function() {
                 window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20YES!&body=Congratulations%20Wisdom!%20She%20said%20YES%20to%20your%20proposal!%20%F0%9F%92%96');
                 alert("Thank you! Wisdom will be so happy! 💖");
             });
             
-            document.getElementById('no-btn').addEventListener('click', function() {
+            document.getElementById('no-btn')?.addEventListener('click', function() {
                 window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20NO&body=Wisdom%2C%20unfortunately%20she%20said%20NO%20to%20your%20proposal.%20%F0%9F%98%94');
                 alert("Wisdom will receive your response. Thank you for your honesty.");
             });
             
             // WhatsApp response links
-            document.getElementById('whatsapp-yes').href = "https://wa.me/237671657357?text=Yes%20Wisdom%2C%20I%20will%20be%20your%20love!%20%F0%9F%92%96";
-            document.getElementById('whatsapp-no').href = "https://wa.me/237671657357?text=Sorry%20Wisdom%2C%20I%20can't%20accept%20your%20proposal.%20%F0%9F%98%94";
+            const whatsappYes = document.getElementById('whatsapp-yes');
+            const whatsappNo = document.getElementById('whatsapp-no');
+            
+            if (whatsappYes) {
+                whatsappYes.href = "https://wa.me/237671657357?text=Yes%20Wisdom%2C%20I%20will%20be%20your%20love!%20%F0%9F%92%96";
+            }
+            
+            if (whatsappNo) {
+                whatsappNo.href = "https://wa.me/237671657357?text=Sorry%20Wisdom%2C%20I%20can't%20accept%20your%20proposal.%20%F0%9F%98%94";
+            }
             
             // Create initial random hearts and messages
             function createInitialElements() {
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < (isMobile ? 20 : 30); i++) {
                     setTimeout(() => {
                         createHeart(0, 0, true);
                         if (i % 4 === 0) {
@@ -440,15 +480,16 @@
                 
                 if (e.type === 'touchstart') {
                     e.preventDefault();
-                    x = e.touches[0].clientX;
-                    y = e.touches[0].clientY;
+                    const touch = e.touches[0] || e.changedTouches[0];
+                    x = touch.clientX;
+                    y = touch.clientY;
                 } else {
                     x = e.clientX;
                     y = e.clientY;
                 }
                 
                 // Create heart and message explosion
-                for (let i = 0; i < 15; i++) {
+                for (let i = 0; i < (isMobile ? 10 : 15); i++) {
                     setTimeout(() => {
                         createHeart(x, y, false);
                         if (i % 3 === 0) {
@@ -466,19 +507,41 @@
             createInitialElements();
             
             // Continuous background hearts and messages
-            setInterval(() => {
-                if (Math.random() > 0.6) {
+            let animationInterval = setInterval(() => {
+                if (Math.random() > 0.7) {
                     createRomanticText(
                         Math.random() * window.innerWidth,
                         Math.random() * window.innerHeight
                     );
                 }
                 createHeart(0, 0, true);
-            }, 500);
+            }, isMobile ? 800 : 500);
             
             // Handle window resize
-            window.addEventListener('resize', function() {
-                // You might want to adjust elements on resize if needed
+            function handleResize() {
+                // Clear existing interval
+                clearInterval(animationInterval);
+                
+                // Restart with appropriate frequency
+                animationInterval = setInterval(() => {
+                    if (Math.random() > 0.7) {
+                        createRomanticText(
+                            Math.random() * window.innerWidth,
+                            Math.random() * window.innerHeight
+                        );
+                    }
+                    createHeart(0, 0, true);
+                }, isMobile ? 800 : 500);
+            }
+            
+            window.addEventListener('resize', handleResize);
+            
+            // Clean up on page unload
+            window.addEventListener('beforeunload', function() {
+                clearInterval(animationInterval);
+                document.removeEventListener('click', handleInteraction);
+                document.removeEventListener('touchstart', handleInteraction);
+                window.removeEventListener('resize', handleResize);
             });
         });
     </script>
