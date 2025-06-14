@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Wisdom's Love Proposal</title>
     <style>
         * {
@@ -77,7 +77,7 @@
             text-shadow: 0 0 15px #ff3388;
             animation: pulse 3s ease-in-out infinite;
             z-index: 10;
-            top: 10vh;
+            top: 10%;
             width: 90%;
             text-align: center;
             font-family: 'Brush Script MT', cursive;
@@ -92,7 +92,7 @@
             color: #ff99dd;
             text-shadow: 0 0 10px #ff77bb;
             z-index: 10;
-            top: 20vh;
+            top: 20%;
             width: 90%;
             text-align: center;
             font-family: 'Brush Script MT', cursive;
@@ -117,7 +117,9 @@
 
         .response-buttons {
             position: fixed;
-            bottom: 10vh;
+            bottom: 10%;
+            left: 0;
+            right: 0;
             width: 100%;
             text-align: center;
             z-index: 20;
@@ -131,6 +133,7 @@
             justify-content: center;
             gap: 10px;
             margin-bottom: 15px;
+            width: 100%;
         }
 
         .response-btn {
@@ -236,12 +239,12 @@
         @media (min-width: 768px) and (min-height: 500px) {
             .proposal {
                 font-size: 3rem;
-                top: 15vh;
+                top: 15%;
             }
             
             .lover-name {
                 font-size: 2rem;
-                top: 25vh;
+                top: 25%;
             }
             
             .center-heart {
@@ -270,12 +273,12 @@
         @media (orientation: landscape) and (max-height: 500px) {
             .proposal {
                 font-size: 1.5rem;
-                top: 5vh;
+                top: 5%;
             }
             
             .lover-name {
                 font-size: 1.2rem;
-                top: 12vh;
+                top: 12%;
             }
             
             .center-heart {
@@ -283,7 +286,7 @@
             }
             
             .response-buttons {
-                bottom: 5vh;
+                bottom: 5%;
             }
             
             .response-btn {
@@ -317,9 +320,20 @@
     </div>
 
     <script>
+        // Immediate check if buttons are visible (for debugging)
+        console.log("DOM loaded, checking button visibility...");
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // Debugging: Log when DOM is loaded
+            console.log("DOM fully loaded and parsed");
+            
+            // Force show buttons immediately for testing
+            // document.querySelector('.response-buttons').style.display = 'block';
+            // document.querySelector('.response-buttons').style.opacity = '1';
+            
             // Check if mobile device
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            console.log("Is mobile device:", isMobile);
             
             const colors = [
                 '#ff3388', '#ff66aa', '#ff99cc',
@@ -425,7 +439,9 @@
             setTimeout(() => {
                 const responseButtons = document.querySelector('.response-buttons');
                 if (responseButtons) {
+                    console.log("Showing response buttons now");
                     responseButtons.style.display = 'block';
+                    responseButtons.style.opacity = '1';
                     
                     // Create a heart explosion when buttons appear
                     const centerX = window.innerWidth / 2;
@@ -433,19 +449,32 @@
                     for (let i = 0; i < (isMobile ? 15 : 20); i++) {
                         setTimeout(() => createHeart(centerX, centerY, false), i * 50);
                     }
+                } else {
+                    console.error("Response buttons element not found!");
                 }
             }, 3000);
             
             // Email response handling
-            document.getElementById('yes-btn')?.addEventListener('click', function() {
-                window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20YES!&body=Congratulations%20Wisdom!%20She%20said%20YES%20to%20your%20proposal!%20%F0%9F%92%96');
-                alert("Thank you! Wisdom will be so happy! 💖");
-            });
+            const yesBtn = document.getElementById('yes-btn');
+            const noBtn = document.getElementById('no-btn');
             
-            document.getElementById('no-btn')?.addEventListener('click', function() {
-                window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20NO&body=Wisdom%2C%20unfortunately%20she%20said%20NO%20to%20your%20proposal.%20%F0%9F%98%94');
-                alert("Wisdom will receive your response. Thank you for your honesty.");
-            });
+            if (yesBtn) {
+                yesBtn.addEventListener('click', function() {
+                    window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20YES!&body=Congratulations%20Wisdom!%20She%20said%20YES%20to%20your%20proposal!%20%F0%9F%92%96');
+                    alert("Thank you! Wisdom will be so happy! 💖");
+                });
+            } else {
+                console.error("Yes button not found!");
+            }
+            
+            if (noBtn) {
+                noBtn.addEventListener('click', function() {
+                    window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20NO&body=Wisdom%2C%20unfortunately%20she%20said%20NO%20to%20your%20proposal.%20%F0%9F%98%94');
+                    alert("Wisdom will receive your response. Thank you for your honesty.");
+                });
+            } else {
+                console.error("No button not found!");
+            }
             
             // WhatsApp response links
             const whatsappYes = document.getElementById('whatsapp-yes');
@@ -453,10 +482,14 @@
             
             if (whatsappYes) {
                 whatsappYes.href = "https://wa.me/237671657357?text=Yes%20Wisdom%2C%20I%20will%20be%20your%20love!%20%F0%9F%92%96";
+            } else {
+                console.error("WhatsApp Yes button not found!");
             }
             
             if (whatsappNo) {
                 whatsappNo.href = "https://wa.me/237671657357?text=Sorry%20Wisdom%2C%20I%20can't%20accept%20your%20proposal.%20%F0%9F%98%94";
+            } else {
+                console.error("WhatsApp No button not found!");
             }
             
             // Create initial random hearts and messages
@@ -517,32 +550,17 @@
                 createHeart(0, 0, true);
             }, isMobile ? 800 : 500);
             
-            // Handle window resize
-            function handleResize() {
-                // Clear existing interval
-                clearInterval(animationInterval);
-                
-                // Restart with appropriate frequency
-                animationInterval = setInterval(() => {
-                    if (Math.random() > 0.7) {
-                        createRomanticText(
-                            Math.random() * window.innerWidth,
-                            Math.random() * window.innerHeight
-                        );
-                    }
-                    createHeart(0, 0, true);
-                }, isMobile ? 800 : 500);
-            }
+            // Debugging: Log viewport dimensions
+            console.log("Viewport dimensions:", window.innerWidth, "x", window.innerHeight);
+            console.log("Device pixel ratio:", window.devicePixelRatio);
             
-            window.addEventListener('resize', handleResize);
-            
-            // Clean up on page unload
-            window.addEventListener('beforeunload', function() {
-                clearInterval(animationInterval);
-                document.removeEventListener('click', handleInteraction);
-                document.removeEventListener('touchstart', handleInteraction);
-                window.removeEventListener('resize', handleResize);
-            });
+            // Force redraw for mobile browsers that might have rendering issues
+            setTimeout(() => {
+                document.body.style.display = 'none';
+                document.body.offsetHeight; // Trigger reflow
+                document.body.style.display = 'flex';
+                console.log("Forced redraw completed");
+            }, 100);
         });
     </script>
 </body>
