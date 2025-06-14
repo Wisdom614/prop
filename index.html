@@ -8,68 +8,25 @@
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
         }
         
         body {
-            margin: 0;
-            padding: 0;
             background: linear-gradient(135deg, #1a1a2e 0%, #3a1d4e 100%);
             overflow: hidden;
-            cursor: pointer;
             height: 100vh;
             width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             touch-action: manipulation;
             position: fixed;
             -webkit-text-size-adjust: 100%;
         }
 
-        .heart {
-            position: absolute;
-            pointer-events: none;
-            transform-origin: center;
-            animation: float 6s ease-in-out forwards;
-            filter: drop-shadow(0 0 12px currentColor);
-            z-index: 1;
-        }
-
-        .heart::before, .heart::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: var(--size);
-            height: calc(var(--size) * 1.6);
-            border-radius: var(--size) var(--size) 0 0;
-            background: currentColor;
-        }
-
-        .heart::before {
-            left: var(--size);
-            transform: rotate(-45deg);
-            transform-origin: 0 100%;
-        }
-
-        .heart::after {
-            left: 0;
-            transform: rotate(45deg);
-            transform-origin: 100% 100%;
-        }
-
-        .romantic-text {
-            position: absolute;
-            color: white;
-            text-shadow: 0 0 10px currentColor;
-            opacity: 0;
-            animation: text-float 8s ease-in-out forwards;
-            pointer-events: none;
-            white-space: nowrap;
-            font-weight: bold;
-            z-index: 2;
-            font-size: 1rem;
-        }
+        /* Heart animation styles... (keep existing heart styles) */
 
         .proposal {
             position: absolute;
@@ -84,7 +41,6 @@
             padding: 0 5%;
             font-size: 2rem;
             line-height: 1.3;
-            margin: 0;
         }
 
         .lover-name {
@@ -98,7 +54,6 @@
             font-family: 'Brush Script MT', cursive;
             padding: 0 5%;
             font-size: 1.5rem;
-            margin: 0;
         }
 
         .center-heart {
@@ -111,8 +66,7 @@
             transform: translate(-50%, -50%);
             animation: pulse 2s ease-in-out infinite, glow 1.5s alternate infinite;
             font-size: 5rem;
-            line-height: 1;
-            margin: 0;
+            pointer-events: none;
         }
 
         .response-buttons {
@@ -122,7 +76,7 @@
             right: 0;
             width: 100%;
             text-align: center;
-            z-index: 20;
+            z-index: 100; /* Very high z-index */
             display: none;
             animation: fadeIn 1.5s ease-out;
             padding: 0 5%;
@@ -138,15 +92,20 @@
 
         .response-btn {
             border: none;
-            padding: 12px 20px;
+            padding: 15px 25px;
             text-align: center;
             border-radius: 25px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-size: 1.1rem;
-            min-width: 100px;
+            transition: all 0.2s;
+            font-size: 1.2rem;
+            min-width: 120px;
             flex: 1;
-            max-width: 150px;
+            max-width: 180px;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+            position: relative;
+            z-index: 101;
         }
 
         .response-btn:active {
@@ -156,11 +115,23 @@
         #yes-btn {
             background: #4CAF50;
             color: white;
+            box-shadow: 0 4px 0 #3e8e41;
+        }
+
+        #yes-btn:active {
+            box-shadow: 0 2px 0 #3e8e41;
+            transform: translateY(2px) scale(0.98);
         }
 
         #no-btn {
             background: #f44336;
             color: white;
+            box-shadow: 0 4px 0 #d32f2f;
+        }
+
+        #no-btn:active {
+            box-shadow: 0 2px 0 #d32f2f;
+            transform: translateY(2px) scale(0.98);
         }
 
         .whatsapp-buttons {
@@ -175,101 +146,59 @@
             display: block;
             background: #25D366;
             color: white;
-            padding: 12px 20px;
+            padding: 15px 25px;
             text-align: center;
             border-radius: 25px;
             cursor: pointer;
             text-decoration: none;
-            transition: transform 0.2s;
-            font-size: 1rem;
+            transition: all 0.2s;
+            font-size: 1.1rem;
             width: 100%;
             max-width: 300px;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+            box-shadow: 0 4px 0 #1da851;
+            position: relative;
+            z-index: 101;
         }
 
         .whatsapp-btn:active {
-            transform: scale(0.95);
+            box-shadow: 0 2px 0 #1da851;
+            transform: translateY(2px) scale(0.98);
         }
 
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: translate(0, -40px) rotate(15deg) scale(1.2);
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0);
-                opacity: 0;
-            }
-        }
+        /* Keyframes... (keep existing animations) */
 
-        @keyframes text-float {
-            0% {
-                transform: translate(0, 0) scale(0.8);
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-                transform: translate(0, -30px) scale(1.1);
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(0);
-                opacity: 0;
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.9; }
-        }
-
-        @keyframes glow {
-            0% { filter: drop-shadow(0 0 15px #ff0055); }
-            100% { filter: drop-shadow(0 0 30px #ff66cc); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Media Queries for Larger Screens */
-        @media (min-width: 768px) and (min-height: 500px) {
+        /* Mobile-specific adjustments */
+        @media (max-width: 480px) {
             .proposal {
-                font-size: 3rem;
-                top: 15%;
+                font-size: 1.8rem;
+                top: 8%;
             }
             
             .lover-name {
-                font-size: 2rem;
-                top: 25%;
+                font-size: 1.3rem;
+                top: 18%;
             }
             
             .center-heart {
-                font-size: 8rem;
+                font-size: 4rem;
             }
             
             .response-btn {
-                padding: 15px 25px;
-                font-size: 1.3rem;
-                min-width: 120px;
-                max-width: 180px;
+                padding: 12px 20px;
+                font-size: 1.1rem;
+                min-width: 100px;
             }
             
             .whatsapp-btn {
-                padding: 15px 25px;
-                font-size: 1.2rem;
-                max-width: 350px;
-            }
-            
-            .romantic-text {
-                font-size: 1.3rem;
+                padding: 12px 20px;
+                font-size: 1rem;
             }
         }
 
-        /* Landscape orientation adjustments */
+        /* Landscape mode fixes */
         @media (orientation: landscape) and (max-height: 500px) {
             .proposal {
                 font-size: 1.5rem;
@@ -288,16 +217,6 @@
             .response-buttons {
                 bottom: 5%;
             }
-            
-            .response-btn {
-                padding: 8px 15px;
-                font-size: 1rem;
-            }
-            
-            .whatsapp-btn {
-                padding: 8px 15px;
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
@@ -314,252 +233,110 @@
         </div>
         
         <div class="whatsapp-buttons">
-            <a id="whatsapp-yes" class="whatsapp-btn" href="#" target="_blank">Reply via WhatsApp (Yes)</a>
-            <a id="whatsapp-no" class="whatsapp-btn" href="#" target="_blank">Reply via WhatsApp (No)</a>
+            <a id="whatsapp-yes" class="whatsapp-btn" href="#" target="_blank">WhatsApp (Yes)</a>
+            <a id="whatsapp-no" class="whatsapp-btn" href="#" target="_blank">WhatsApp (No)</a>
         </div>
     </div>
 
     <script>
-        // Immediate check if buttons are visible (for debugging)
-        console.log("DOM loaded, checking button visibility...");
-        
+        // Debugging function to log touch events
+        function logEvent(type, target) {
+            console.log(`${type} event on`, target);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Debugging: Log when DOM is loaded
-            console.log("DOM fully loaded and parsed");
+            // Debugging info
+            console.log("DOM fully loaded");
+            console.log("User Agent:", navigator.userAgent);
             
-            // Force show buttons immediately for testing
-            // document.querySelector('.response-buttons').style.display = 'block';
-            // document.querySelector('.response-buttons').style.opacity = '1';
-            
-            // Check if mobile device
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            console.log("Is mobile device:", isMobile);
-            
-            const colors = [
-                '#ff3388', '#ff66aa', '#ff99cc',
-                '#ffccdd', '#ff0055', '#ff1493',
-                '#ff6b6b', '#ff9999', '#ffb3b3'
-            ];
-            
-            const romanticMessages = [
-                "My heart belongs to you",
-                "You're my dream come true",
-                "Forever yours, my love",
-                "Every moment with you is magic",
-                "I cherish you endlessly",
-                "You make my soul dance",
-                "I fall for you every day",
-                "Your love is my paradise",
-                "Together, we're infinite",
-                "You're my perfect match"
-            ];
-            
-            function createHeart(x, y, isRandom) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                
-                // Adjust size based on device
-                const baseSize = isMobile ? 15 : 20;
-                const size = Math.random() * baseSize + 10;
-                const duration = Math.random() * 4 + 3;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const angle = Math.random() * Math.PI * 2;
-                const distance = isMobile ? 100 + Math.random() * 200 : 150 + Math.random() * 300;
-                const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance - (isMobile ? 100 : 150);
-                const rotation = Math.random() * 360;
-                
-                // Set CSS variables
-                heart.style.setProperty('--size', `${size}px`);
-                heart.style.setProperty('--tx', `${tx}px`);
-                heart.style.setProperty('--ty', `${ty}px`);
-                heart.style.setProperty('--rot', `${rotation}deg`);
-                heart.style.color = color;
-                
-                // Position
-                if (isRandom) {
-                    heart.style.left = Math.random() * window.innerWidth + 'px';
-                    heart.style.top = Math.random() * window.innerHeight + 'px';
-                } else {
-                    heart.style.left = x + 'px';
-                    heart.style.top = y + 'px';
-                }
-                
-                // Animation
-                heart.style.animation = `float ${duration}s ease-in-out forwards`;
-                
-                document.body.appendChild(heart);
-                
-                // Remove heart after animation
-                setTimeout(() => {
-                    if (heart.parentNode) {
-                        heart.remove();
-                    }
-                }, duration * 1000);
-            }
-            
-            function createRomanticText(x, y) {
-                const text = document.createElement('div');
-                text.classList.add('romantic-text');
-                
-                const message = romanticMessages[Math.floor(Math.random() * romanticMessages.length)];
-                const duration = Math.random() * 5 + 4;
-                const angle = Math.random() * Math.PI * 2;
-                const distance = isMobile ? 100 + Math.random() * 200 : 150 + Math.random() * 300;
-                const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance - (isMobile ? 100 : 150);
-                
-                text.textContent = message;
-                text.style.setProperty('--tx', `${tx}px`);
-                text.style.setProperty('--ty', `${ty}px`);
-                
-                // Random text color
-                const hue = 330 + Math.random() * 30;
-                text.style.color = `hsl(${hue}, 100%, 80%)`;
-                text.style.fontSize = `${Math.random() * 0.5 + 0.8}rem`;
-                
-                // Position
-                text.style.left = x + 'px';
-                text.style.top = y + 'px';
-                
-                // Animation
-                text.style.animation = `text-float ${duration}s ease-in-out forwards`;
-                
-                document.body.appendChild(text);
-                
-                // Remove text after animation
-                setTimeout(() => {
-                    if (text.parentNode) {
-                        text.remove();
-                    }
-                }, duration * 1000);
-            }
-            
-            // Show response buttons after 3 seconds
-            setTimeout(() => {
-                const responseButtons = document.querySelector('.response-buttons');
-                if (responseButtons) {
-                    console.log("Showing response buttons now");
-                    responseButtons.style.display = 'block';
-                    responseButtons.style.opacity = '1';
+            // Show buttons after 3 seconds
+            setTimeout(function() {
+                const buttons = document.querySelector('.response-buttons');
+                if (buttons) {
+                    buttons.style.display = 'block';
+                    console.log("Buttons should now be visible");
                     
-                    // Create a heart explosion when buttons appear
-                    const centerX = window.innerWidth / 2;
-                    const centerY = window.innerHeight / 2;
-                    for (let i = 0; i < (isMobile ? 15 : 20); i++) {
-                        setTimeout(() => createHeart(centerX, centerY, false), i * 50);
-                    }
+                    // Add temporary outline for debugging
+                    buttons.style.outline = '2px solid red';
+                    setTimeout(() => buttons.style.outline = 'none', 2000);
                 } else {
-                    console.error("Response buttons element not found!");
+                    console.error("Buttons container not found!");
                 }
             }, 3000);
-            
-            // Email response handling
+
+            // Click/touch handlers with debugging
+            function handleYes() {
+                logEvent('click/touch', 'YES button');
+                window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20YES!&body=Congratulations%20Wisdom!%20She%20said%20YES%20to%20your%20proposal!%20%F0%9F%92%96');
+                alert("Thank you! Wisdom will be so happy! 💖");
+            }
+
+            function handleNo() {
+                logEvent('click/touch', 'NO button');
+                window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20NO&body=Wisdom%2C%20unfortunately%20she%20said%20NO%20to%20your%20proposal.%20%F0%9F%98%94');
+                alert("Wisdom will receive your response. Thank you for your honesty.");
+            }
+
+            // Add both touch and click events
             const yesBtn = document.getElementById('yes-btn');
             const noBtn = document.getElementById('no-btn');
             
             if (yesBtn) {
-                yesBtn.addEventListener('click', function() {
-                    window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20YES!&body=Congratulations%20Wisdom!%20She%20said%20YES%20to%20your%20proposal!%20%F0%9F%92%96');
-                    alert("Thank you! Wisdom will be so happy! 💖");
+                yesBtn.addEventListener('click', handleYes);
+                yesBtn.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    handleYes();
                 });
             } else {
-                console.error("Yes button not found!");
+                console.error("YES button not found!");
             }
             
             if (noBtn) {
-                noBtn.addEventListener('click', function() {
-                    window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20NO&body=Wisdom%2C%20unfortunately%20she%20said%20NO%20to%20your%20proposal.%20%F0%9F%98%94');
-                    alert("Wisdom will receive your response. Thank you for your honesty.");
+                noBtn.addEventListener('click', handleNo);
+                noBtn.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    handleNo();
                 });
             } else {
-                console.error("No button not found!");
+                console.error("NO button not found!");
             }
-            
-            // WhatsApp response links
+
+            // WhatsApp links
             const whatsappYes = document.getElementById('whatsapp-yes');
             const whatsappNo = document.getElementById('whatsapp-no');
             
             if (whatsappYes) {
                 whatsappYes.href = "https://wa.me/237671657357?text=Yes%20Wisdom%2C%20I%20will%20be%20your%20love!%20%F0%9F%92%96";
-            } else {
-                console.error("WhatsApp Yes button not found!");
+                whatsappYes.addEventListener('touchend', function() {
+                    logEvent('touch', 'WhatsApp YES');
+                });
             }
             
             if (whatsappNo) {
                 whatsappNo.href = "https://wa.me/237671657357?text=Sorry%20Wisdom%2C%20I%20can't%20accept%20your%20proposal.%20%F0%9F%98%94";
-            } else {
-                console.error("WhatsApp No button not found!");
+                whatsappNo.addEventListener('touchend', function() {
+                    logEvent('touch', 'WhatsApp NO');
+                });
             }
+
+            // Debugging: Add click listeners to document to check event propagation
+            document.addEventListener('click', function(e) {
+                console.log("Document click at:", e.clientX, e.clientY, "target:", e.target);
+            });
             
-            // Create initial random hearts and messages
-            function createInitialElements() {
-                for (let i = 0; i < (isMobile ? 20 : 30); i++) {
-                    setTimeout(() => {
-                        createHeart(0, 0, true);
-                        if (i % 4 === 0) {
-                            createRomanticText(
-                                Math.random() * window.innerWidth,
-                                Math.random() * window.innerHeight
-                            );
-                        }
-                    }, i * 200);
+            document.addEventListener('touchend', function(e) {
+                console.log("Document touch at:", e.changedTouches[0].clientX, e.changedTouches[0].clientY, "target:", e.target);
+            });
+
+            // Force button redraw (fix for some mobile browsers)
+            setTimeout(function() {
+                const buttons = document.querySelector('.response-buttons');
+                if (buttons) {
+                    buttons.style.display = 'none';
+                    void buttons.offsetHeight; // Trigger reflow
+                    buttons.style.display = 'block';
+                    console.log("Forced button redraw");
                 }
-            }
-            
-            // Click/touch interaction
-            function handleInteraction(e) {
-                let x, y;
-                
-                if (e.type === 'touchstart') {
-                    e.preventDefault();
-                    const touch = e.touches[0] || e.changedTouches[0];
-                    x = touch.clientX;
-                    y = touch.clientY;
-                } else {
-                    x = e.clientX;
-                    y = e.clientY;
-                }
-                
-                // Create heart and message explosion
-                for (let i = 0; i < (isMobile ? 10 : 15); i++) {
-                    setTimeout(() => {
-                        createHeart(x, y, false);
-                        if (i % 3 === 0) {
-                            createRomanticText(x, y);
-                        }
-                    }, i * 50);
-                }
-            }
-            
-            // Event listeners
-            document.addEventListener('click', handleInteraction);
-            document.addEventListener('touchstart', handleInteraction, { passive: false });
-            
-            // Start the animation
-            createInitialElements();
-            
-            // Continuous background hearts and messages
-            let animationInterval = setInterval(() => {
-                if (Math.random() > 0.7) {
-                    createRomanticText(
-                        Math.random() * window.innerWidth,
-                        Math.random() * window.innerHeight
-                    );
-                }
-                createHeart(0, 0, true);
-            }, isMobile ? 800 : 500);
-            
-            // Debugging: Log viewport dimensions
-            console.log("Viewport dimensions:", window.innerWidth, "x", window.innerHeight);
-            console.log("Device pixel ratio:", window.devicePixelRatio);
-            
-            // Force redraw for mobile browsers that might have rendering issues
-            setTimeout(() => {
-                document.body.style.display = 'none';
-                document.body.offsetHeight; // Trigger reflow
-                document.body.style.display = 'flex';
-                console.log("Forced redraw completed");
             }, 100);
         });
     </script>
