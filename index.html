@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisdom's Love Proposal</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #3a1d4e 100%);
+            overflow: hidden;
+            cursor: pointer;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', cursive;
+        }
+
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            transform-origin: center;
+            animation: float 6s ease-in-out forwards;
+            filter: drop-shadow(0 0 12px currentColor);
+            z-index: 1;
+        }
+
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: var(--size);
+            height: calc(var(--size) * 1.6);
+            border-radius: var(--size) var(--size) 0 0;
+            background: currentColor;
+        }
+
+        .heart::before {
+            left: var(--size);
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .romantic-text {
+            position: absolute;
+            color: white;
+            font-size: 1.5rem;
+            text-shadow: 0 0 20px currentColor;
+            opacity: 0;
+            animation: text-float 8s ease-in-out forwards;
+            pointer-events: none;
+            white-space: nowrap;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .proposal {
+            position: absolute;
+            color: #ff66cc;
+            font-size: 3.5rem;
+            text-shadow: 0 0 25px #ff3388;
+            animation: pulse 3s ease-in-out infinite;
+            z-index: 10;
+            top: 20%;
+            width: 100%;
+            text-align: center;
+            font-family: 'Brush Script MT', cursive;
+        }
+
+        .lover-name {
+            position: absolute;
+            color: #ff99dd;
+            font-size: 2.5rem;
+            text-shadow: 0 0 20px #ff77bb;
+            z-index: 10;
+            top: 30%;
+            width: 100%;
+            text-align: center;
+            font-family: 'Brush Script MT', cursive;
+        }
+
+        .center-heart {
+            position: absolute;
+            font-size: 150px;
+            color: #ff0055;
+            filter: drop-shadow(0 0 40px #ff3388);
+            z-index: 5;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s ease-in-out infinite, glow 1.5s alternate infinite;
+        }
+
+        .response-buttons {
+            position: fixed;
+            bottom: 20%;
+            width: 100%;
+            text-align: center;
+            z-index: 20;
+            display: none;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .response-btn {
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .response-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        }
+
+        #yes-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        #no-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        #whatsapp-yes, #whatsapp-no {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        #whatsapp-yes:hover, #whatsapp-no:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(0, -60px) rotate(15deg) scale(1.3);
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes text-float {
+            0% {
+                transform: translate(0, 0) scale(0.8);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+                transform: translate(0, -40px) scale(1.3);
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
+
+        @keyframes glow {
+            0% { filter: drop-shadow(0 0 30px #ff0055); }
+            100% { filter: drop-shadow(0 0 60px #ff66cc); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="proposal">Will you be my love?</div>
+    <div class="lover-name">- Wisdom -</div>
+    <div class="center-heart">💖</div>
+
+    <!-- Response Buttons (Email) -->
+    <div class="response-buttons">
+        <button id="yes-btn" class="response-btn">YES 💖</button>
+        <button id="no-btn" class="response-btn">NO 😢</button>
+        
+        <br>
+        
+        <a id="whatsapp-yes" href="#" target="_blank">Reply via WhatsApp (Yes)</a>
+        <a id="whatsapp-no" href="#" target="_blank">Reply via WhatsApp (No)</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const colors = [
+                '#ff3388', '#ff66aa', '#ff99cc',
+                '#ffccdd', '#ff0055', '#ff1493',
+                '#ff6b6b', '#ff9999', '#ffb3b3'
+            ];
+            
+            const romanticMessages = [
+                "My heart belongs to you",
+                "You're my dream come true",
+                "Forever yours, my love",
+                "Every moment with you is magic",
+                "I cherish you endlessly",
+                "You make my soul dance",
+                "I fall for you every day",
+                "Your love is my paradise",
+                "Together, we're infinite",
+                "You're my perfect match",
+                "My love for you is eternal",
+                "In your arms, I'm home",
+                "You're the answer to my prayers",
+                "I choose you every day",
+                "You're my happy ending",
+                "My heart whispers your name"
+            ];
+            
+            function createHeart(x, y, isRandom) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                
+                // Random properties
+                const size = Math.random() * 30 + 20;
+                const duration = Math.random() * 5 + 4;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 200 + Math.random() * 400;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance - 200;
+                const rotation = Math.random() * 360;
+                
+                // Set CSS variables
+                heart.style.setProperty('--size', `${size}px`);
+                heart.style.setProperty('--tx', `${tx}px`);
+                heart.style.setProperty('--ty', `${ty}px`);
+                heart.style.setProperty('--rot', `${rotation}deg`);
+                heart.style.color = color;
+                
+                // Position
+                if (isRandom) {
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.top = Math.random() * window.innerHeight + 'px';
+                } else {
+                    heart.style.left = x + 'px';
+                    heart.style.top = y + 'px';
+                }
+                
+                // Animation
+                heart.style.animation = `float ${duration}s ease-in-out forwards`;
+                
+                document.body.appendChild(heart);
+                
+                // Remove heart after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, duration * 1000);
+            }
+            
+            function createRomanticText(x, y) {
+                const text = document.createElement('div');
+                text.classList.add('romantic-text');
+                
+                // Random properties
+                const message = romanticMessages[Math.floor(Math.random() * romanticMessages.length)];
+                const duration = Math.random() * 6 + 6;
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 200 + Math.random() * 400;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance - 200;
+                
+                text.textContent = message;
+                text.style.setProperty('--tx', `${tx}px`);
+                text.style.setProperty('--ty', `${ty}px`);
+                
+                // Random text color
+                const hue = 330 + Math.random() * 30; // Pink/red hues
+                text.style.color = `hsl(${hue}, 100%, 80%)`;
+                text.style.fontSize = `${Math.random() * 0.8 + 1.4}rem`;
+                
+                // Position
+                text.style.left = x + 'px';
+                text.style.top = y + 'px';
+                
+                // Animation
+                text.style.animation = `text-float ${duration}s ease-in-out forwards`;
+                
+                document.body.appendChild(text);
+                
+                // Remove text after animation
+                setTimeout(() => {
+                    text.remove();
+                }, duration * 1000);
+            }
+            
+            // Show response buttons after 5 seconds
+            setTimeout(() => {
+                document.querySelector('.response-buttons').style.display = 'block';
+                
+                // Create a heart explosion when buttons appear
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(() => createHeart(centerX, centerY, false), i * 50);
+                }
+            }, 5000);
+            
+            // Email response handling
+            document.getElementById('yes-btn').addEventListener('click', function() {
+                window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20YES!&body=Congratulations%20Wisdom!%20She%20said%20YES%20to%20your%20proposal!%20%F0%9F%92%96');
+                alert("Thank you! Wisdom will be so happy! 💖");
+            });
+            
+            document.getElementById('no-btn').addEventListener('click', function() {
+                window.open('mailto:wisdombesong123@gmail.com?subject=She%20Said%20NO&body=Wisdom%2C%20unfortunately%20she%20said%20NO%20to%20your%20proposal.%20%F0%9F%98%94');
+                alert("Wisdom will receive your response. Thank you for your honesty.");
+            });
+            
+            // WhatsApp response links
+            document.getElementById('whatsapp-yes').href = "https://wa.me/237671657357?text=Yes%20Wisdom%2C%20I%20will%20be%20your%20love!%20%F0%9F%92%96";
+            document.getElementById('whatsapp-no').href = "https://wa.me/237671657357?text=Sorry%20Wisdom%2C%20I%20can't%20accept%20your%20proposal.%20%F0%9F%98%94";
+            
+            // Create initial random hearts and messages
+            function createInitialElements() {
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        createHeart(0, 0, true);
+                        if (i % 4 === 0) {
+                            createRomanticText(
+                                Math.random() * window.innerWidth,
+                                Math.random() * window.innerHeight
+                            );
+                        }
+                    }, i * 200);
+                }
+            }
+            
+            // Click/touch interaction
+            function handleInteraction(e) {
+                const x = e.clientX || e.touches[0].clientX;
+                const y = e.clientY || e.touches[0].clientY;
+                
+                // Create heart and message explosion
+                for (let i = 0; i < 25; i++) {
+                    setTimeout(() => {
+                        createHeart(x, y, false);
+                        if (i % 3 === 0) {
+                            createRomanticText(x, y);
+                        }
+                    }, i * 50);
+                }
+            }
+            
+            // Event listeners
+            document.addEventListener('click', handleInteraction);
+            document.addEventListener('touchstart', handleInteraction);
+            
+            // Start the animation
+            createInitialElements();
+            
+            // Continuous background hearts and messages
+            setInterval(() => {
+                if (Math.random() > 0.6) {
+                    createRomanticText(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight
+                    );
+                }
+                createHeart(0, 0, true);
+            }, 300);
+        });
+    </script>
+</body>
+</html>
