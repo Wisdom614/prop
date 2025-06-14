@@ -16,6 +16,7 @@
             justify-content: center;
             align-items: center;
             font-family: 'Arial', cursive;
+            touch-action: manipulation;
         }
 
         .heart {
@@ -65,31 +66,32 @@
         .proposal {
             position: absolute;
             color: #ff66cc;
-            font-size: 3.5rem;
             text-shadow: 0 0 25px #ff3388;
             animation: pulse 3s ease-in-out infinite;
             z-index: 10;
-            top: 20%;
-            width: 100%;
+            top: 15%;
+            width: 90%;
             text-align: center;
             font-family: 'Brush Script MT', cursive;
+            padding: 0 5%;
+            font-size: 2.5rem;
         }
 
         .lover-name {
             position: absolute;
             color: #ff99dd;
-            font-size: 2.5rem;
             text-shadow: 0 0 20px #ff77bb;
             z-index: 10;
-            top: 30%;
-            width: 100%;
+            top: 25%;
+            width: 90%;
             text-align: center;
             font-family: 'Brush Script MT', cursive;
+            padding: 0 5%;
+            font-size: 2rem;
         }
 
         .center-heart {
             position: absolute;
-            font-size: 150px;
             color: #ff0055;
             filter: drop-shadow(0 0 40px #ff3388);
             z-index: 5;
@@ -97,11 +99,12 @@
             left: 50%;
             transform: translate(-50%, -50%);
             animation: pulse 2s ease-in-out infinite, glow 1.5s alternate infinite;
+            font-size: 8rem;
         }
 
         .response-buttons {
             position: fixed;
-            bottom: 20%;
+            bottom: 15%;
             width: 100%;
             text-align: center;
             z-index: 20;
@@ -111,13 +114,14 @@
 
         .response-btn {
             border: none;
-            padding: 15px 32px;
+            padding: 12px 24px;
             text-align: center;
-            font-size: 1.5rem;
-            margin: 10px;
+            margin: 8px;
             border-radius: 12px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 1.2rem;
+            width: 120px;
         }
 
         .response-btn:hover {
@@ -135,22 +139,30 @@
             color: white;
         }
 
+        .whatsapp-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+        }
+
         #whatsapp-yes, #whatsapp-no {
             display: inline-block;
             background: #25D366;
             color: white;
-            padding: 15px 32px;
+            padding: 12px 24px;
             text-align: center;
-            font-size: 1.5rem;
-            margin: 10px;
+            margin: 8px 0;
             border-radius: 12px;
             cursor: pointer;
             text-decoration: none;
             transition: transform 0.3s;
+            font-size: 1rem;
+            width: 220px;
         }
 
         #whatsapp-yes:hover, #whatsapp-no:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         @keyframes float {
@@ -184,7 +196,7 @@
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.15); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 1; }
             100% { transform: scale(1); opacity: 0.9; }
         }
 
@@ -197,22 +209,83 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Media Queries for Responsiveness */
+        @media (min-width: 768px) {
+            .proposal {
+                font-size: 3.5rem;
+                top: 20%;
+            }
+            
+            .lover-name {
+                font-size: 2.5rem;
+                top: 30%;
+            }
+            
+            .center-heart {
+                font-size: 150px;
+            }
+            
+            .response-btn {
+                padding: 15px 32px;
+                font-size: 1.5rem;
+                width: auto;
+            }
+            
+            #whatsapp-yes, #whatsapp-no {
+                padding: 15px 32px;
+                font-size: 1.2rem;
+                width: auto;
+            }
+            
+            .whatsapp-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            #whatsapp-yes, #whatsapp-no {
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .proposal {
+                top: 10%;
+                font-size: 2rem;
+            }
+            
+            .lover-name {
+                top: 20%;
+                font-size: 1.5rem;
+            }
+            
+            .center-heart {
+                font-size: 5rem;
+                top: 45%;
+            }
+            
+            .response-buttons {
+                bottom: 10%;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="proposal">Will you be my love?</div>
+    <div class="proposal">Will you be the one for me?</div>
     <div class="lover-name">- Wisdom -</div>
     <div class="center-heart">💖</div>
 
     <!-- Response Buttons (Email) -->
     <div class="response-buttons">
-        <button id="yes-btn" class="response-btn">YES 💖</button>
-        <button id="no-btn" class="response-btn">NO 😢</button>
+        <div>
+            <button id="yes-btn" class="response-btn">YES 💖</button>
+            <button id="no-btn" class="response-btn">NO 😢</button>
+        </div>
         
-        <br>
-        
-        <a id="whatsapp-yes" href="#" target="_blank">Reply via WhatsApp (Yes)</a>
-        <a id="whatsapp-no" href="#" target="_blank">Reply via WhatsApp (No)</a>
+        <div class="whatsapp-buttons">
+            <a id="whatsapp-yes" href="#" target="_blank">WhatsApp (Yes)</a>
+            <a id="whatsapp-no" href="#" target="_blank">WhatsApp (No)</a>
+        </div>
     </div>
 
     <script>
@@ -247,13 +320,13 @@
                 heart.classList.add('heart');
                 
                 // Random properties
-                const size = Math.random() * 30 + 20;
+                const size = Math.random() * 20 + 15;
                 const duration = Math.random() * 5 + 4;
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 const angle = Math.random() * Math.PI * 2;
-                const distance = 200 + Math.random() * 400;
+                const distance = 150 + Math.random() * 300;
                 const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance - 200;
+                const ty = Math.sin(angle) * distance - 150;
                 const rotation = Math.random() * 360;
                 
                 // Set CSS variables
@@ -291,9 +364,9 @@
                 const message = romanticMessages[Math.floor(Math.random() * romanticMessages.length)];
                 const duration = Math.random() * 6 + 6;
                 const angle = Math.random() * Math.PI * 2;
-                const distance = 200 + Math.random() * 400;
+                const distance = 150 + Math.random() * 300;
                 const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance - 200;
+                const ty = Math.sin(angle) * distance - 150;
                 
                 text.textContent = message;
                 text.style.setProperty('--tx', `${tx}px`);
@@ -302,7 +375,7 @@
                 // Random text color
                 const hue = 330 + Math.random() * 30; // Pink/red hues
                 text.style.color = `hsl(${hue}, 100%, 80%)`;
-                text.style.fontSize = `${Math.random() * 0.8 + 1.4}rem`;
+                text.style.fontSize = `${Math.random() * 0.6 + 1}rem`;
                 
                 // Position
                 text.style.left = x + 'px';
@@ -326,7 +399,7 @@
                 // Create a heart explosion when buttons appear
                 const centerX = window.innerWidth / 2;
                 const centerY = window.innerHeight / 2;
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < 20; i++) {
                     setTimeout(() => createHeart(centerX, centerY, false), i * 50);
                 }
             }, 5000);
@@ -348,7 +421,7 @@
             
             // Create initial random hearts and messages
             function createInitialElements() {
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < 30; i++) {
                     setTimeout(() => {
                         createHeart(0, 0, true);
                         if (i % 4 === 0) {
@@ -363,11 +436,19 @@
             
             // Click/touch interaction
             function handleInteraction(e) {
-                const x = e.clientX || e.touches[0].clientX;
-                const y = e.clientY || e.touches[0].clientY;
+                let x, y;
+                
+                if (e.type === 'touchstart') {
+                    e.preventDefault();
+                    x = e.touches[0].clientX;
+                    y = e.touches[0].clientY;
+                } else {
+                    x = e.clientX;
+                    y = e.clientY;
+                }
                 
                 // Create heart and message explosion
-                for (let i = 0; i < 25; i++) {
+                for (let i = 0; i < 15; i++) {
                     setTimeout(() => {
                         createHeart(x, y, false);
                         if (i % 3 === 0) {
@@ -379,7 +460,7 @@
             
             // Event listeners
             document.addEventListener('click', handleInteraction);
-            document.addEventListener('touchstart', handleInteraction);
+            document.addEventListener('touchstart', handleInteraction, { passive: false });
             
             // Start the animation
             createInitialElements();
@@ -393,7 +474,12 @@
                     );
                 }
                 createHeart(0, 0, true);
-            }, 300);
+            }, 500);
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                // You might want to adjust elements on resize if needed
+            });
         });
     </script>
 </body>
